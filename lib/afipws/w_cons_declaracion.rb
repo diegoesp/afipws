@@ -23,8 +23,8 @@ module Afipws
         'argDetalladasListaParams' => {
           'CuitImportadorExportador' => @cuit,
           'IdentificadorDeclaracion' => identificador_declaracion,
-          'FechaOficializacionDesde' => fecha_oficializacion_desde&.iso8601,
-          'FechaOficializacionHasta' => fecha_oficializacion_hasta&.iso8601
+          'FechaOficializacionDesde' => fecha_oficializacion_desde,
+          'FechaOficializacionHasta' => fecha_oficializacion_hasta
         }.compact
       }
       request(:detallada_lista_declaraciones, auth.merge(message))[:declaraciones][:declaracion]

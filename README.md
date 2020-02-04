@@ -1,43 +1,41 @@
-# Afipws
+# Afipws ex
 
-Ruby client para los web services de la AFIP.
-
-[![Build Status](https://travis-ci.org/eeng/afipws.svg?branch=master)](https://travis-ci.org/eeng/afipws)
+Ruby client para los web services de la AFIP. Fork de https://github.com/eeng/afipws. Extendido para agregar
+el servicio wsmtxca. Algun dia, cuando tenga tiempo, haré un pull request para meter la funcionalidad
+en el proyecto madre.
 
 ## Servicios Disponibles
 
 * wsaa (WSAA)
-* wsfe (WSFE)
+* wsfe (WSFEv1)
 * ws_sr_constancia_inscripcion (WSConstanciaInscripcion)
 * ws_sr_padron_a100 (PersonaServiceA100)
 * ws_sr_padron_a4 (PersonaServiceA4)
 * wconsdeclaracion (WConsDeclaracion)
+* wsmtxca (WSMTXCA)
 
 ## Uso
 
-Primero hay que crear la clave privada y obtener el certificado correspondiente según los pasos indicados [aquí](http://www.afip.gov.ar/ws/WSAA/cert-req-howto.txt).
+1) Generar certificados siguiendo las [instrucciones](http://www.afip.gov.ar/ws/WSAA/cert-req-howto.txt).
+2) Instalar la gema
 
-Luego hay que instalar la librería:
-
-```
+```ruby
 gem install afipws
 ```
 
-Y por último usamos el web service de esta forma:
+3) Usar el web service:
 
 ```ruby
 require 'afipws'
-ws = Afipws::WSFE.new env: :development, cuit: '...', key: File.read('test.key'), cert: File.read('test.crt')
-puts ws.cotizacion 'DOL'
+
+wsmtxa = Afipws::WSMTXA.new(
+	env: :development, 
+	cuit: "30339128591",
+	key: File.read(...),
+	cert: File.read(...)
+)
+
+puts wsmtxa.consultar_ultimo_comprobante_autorizado { codigo_tipo_comprobante: 1, numero_punto_venta: "003" }
 ```
 
 Ver specs para más ejemplos.
-
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Test, test, test (`guard`)
-4. Commit your changes (`git commit -am 'Add some feature'`)
-5. Push to the branch (`git push origin my-new-feature`)
-6. Create new Pull Request

@@ -36,6 +36,7 @@ module Afipws
     def marshall_fn
       @marshall_fn ||= Hash.new(proc { |other| other }).tap do |p|
         p[:date] = proc { |date| date.strftime('%Y%m%d') }
+        p[:date_hyphenated] = proc { |date| date.strftime('%Y-%m-%d') }
       end
     end
   end
