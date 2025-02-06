@@ -67,8 +67,8 @@ module Afipws
 		def condicion_iva_receptor cuit
 			r = request :fe_param_get_condicion_iva_receptor, auth
 			x2r get_array(r, :condicion_iva_receptor), id: :integer, desc: :string, cmp_clase: :string
-      request(:fe_param_get_condicion_iva_receptor, auth.merge(cuit: cuit))[:result_get]
-    end
+			request(:fe_param_get_condicion_iva_receptor, auth.merge(cuit: cuit))[:result_get]
+		end
 
     def autorizar_comprobantes opciones
       comprobantes = opciones[:comprobantes]
